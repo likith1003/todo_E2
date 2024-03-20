@@ -1,5 +1,6 @@
 from django.shortcuts import render
 from app.models import *
+from django.http import HttpResponse
 # Create your views here.
 
 def home(request):
@@ -12,3 +13,17 @@ def home(request):
             TO = Todo(name=title,desc=desc)
             TO.save()
     return render(request, 'home.html',d)
+sno = 0
+def update(request):
+    if request.method == 'GET':
+        global sno
+        sno = request.GET.get('sno')
+        return render(request, 'update.html')
+    elif request.method == 'POST':
+        title = request.POST.get('title')
+        desc = request.POST.get('desc')
+        Todo.objects.filter(sno=sno).update(name=title,desc=desc)
+        alltodos = Todo.objects.all()
+        d = {'alltodos':alltodos}
+        return render(request, 'home.html',d)
+    return render(request, 'update.html')

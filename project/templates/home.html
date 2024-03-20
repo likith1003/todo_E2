@@ -49,14 +49,17 @@
                     {{todo.desc}}
                 </td>
                 <td>
-                    <button type="submit" class="btn btn-outline-success">Update</button>
+                    <form action="/update" method="get">
+                        <button type="submit" class="btn btn-outline-success">Update</button>
+                        <input type="text" value="{{todo.sno}}" name="sno" style="display: none;">
+                    </form>
                     <button type="submit" class="btn btn-outline-danger">delete</button>
                 </td>
             </tr>
             {% endfor %}
         </tbody>
     </table>
-    {% else %}
+    {% else %} 
     <div class="alert alert-primary" role="alert">
         No Todos Exists Please add your first TODO
     </div>
