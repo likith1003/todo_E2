@@ -12,6 +12,11 @@ def home(request):
         if title and desc:
             TO = Todo(name=title,desc=desc)
             TO.save()
+    elif request.method == 'GET':
+        sno = request.GET.get('sno')
+        Todo.objects.filter(sno=sno).delete()
+        alltodos = Todo.objects.all()
+        d = {'alltodos':alltodos}
     return render(request, 'home.html',d)
 sno = 0
 def update(request):
